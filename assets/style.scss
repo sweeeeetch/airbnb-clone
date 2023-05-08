@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+body,
+html,
+:root {
+  height: 100%;
+}
+
 body {
   font-family: "Nunito";
+}
+@layer utilities {
+  .container {
+    @apply max-w-[2520px] mx-auto xl:px-20 md:px-10 sm:px-2;
+  }
+}
+.nuxt-icon svg {
+  width: initial;
+  height: initial;
+  margin-bottom: 0;
 }

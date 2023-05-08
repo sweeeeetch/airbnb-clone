@@ -16,6 +16,7 @@
     "tailwindcss": "^3.3.2"
   },
   "dependencies": {
+    "nuxt-icons": "^3.2.1",
     "sass": "^1.62.1"
   }
 }

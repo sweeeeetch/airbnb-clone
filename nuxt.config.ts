@@ -20,7 +20,7 @@ export default defineNuxtConfig({
   },
 
   css: ["assets/style.scss"],
-
+  modules: ["nuxt-icons"],
   postcss: {
     plugins: {
       tailwindcss: {},
