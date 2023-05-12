@@ -1,8 +1,15 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const props = defineProps<{
+  action: () => void;
+}>();
+</script>
 
 <template>
   <ClientOnly>
-    <div class="px-4 py-3 hover:bg-neutral-100 transition font-semibold">
+    <div
+      @click="action"
+      class="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
+    >
       <slot />
     </div>
   </ClientOnly>

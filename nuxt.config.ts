@@ -1,8 +1,4 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  alias: {
-    "@": "<rootDir>",
-  },
   app: {
     head: {
       title: "Airbnb",
@@ -19,12 +15,19 @@ export default defineNuxtConfig({
     },
   },
 
-  css: ["assets/style.scss"],
-  modules: ["nuxt-icons"],
+  css: ["assets/style.scss", "vue-toast-notification/dist/theme-sugar.css"],
+  modules: ["nuxt-icons", "@pinia/nuxt", "@vee-validate/nuxt"],
+  pinia: {
+    autoImports: ["defineStore"],
+  },
   postcss: {
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
     },
   },
+  plugins: [
+    "~/plugins/vee-validate.js",
+    { src: "~/plugins/vue-toast-notification.js", mode: "client" },
+  ],
 });
