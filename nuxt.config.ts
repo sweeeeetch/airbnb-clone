@@ -16,7 +16,7 @@ export default defineNuxtConfig({
   },
 
   css: ["assets/style.scss", "vue-toast-notification/dist/theme-sugar.css"],
-  modules: ["nuxt-icons", "@pinia/nuxt", "@vee-validate/nuxt"],
+  modules: ["nuxt-icons", "@pinia/nuxt", "@vee-validate/nuxt", "@sidebase/nuxt-auth"],
   pinia: {
     autoImports: ["defineStore"],
   },
@@ -24,6 +24,11 @@ export default defineNuxtConfig({
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
+    },
+  },
+  auth: {
+    provider: {
+      type: "authjs",
     },
   },
   plugins: [

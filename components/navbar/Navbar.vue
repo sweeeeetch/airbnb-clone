@@ -1,4 +1,12 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { User } from "@prisma/client";
+interface NavbarProps {
+  currentUser: User | null;
+}
+
+const props = defineProps<NavbarProps>();
+console.log(props.currentUser);
+</script>
 
 <template>
   <ClientOnly>

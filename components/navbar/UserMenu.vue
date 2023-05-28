@@ -34,7 +34,7 @@ const log = () => {
         v-if="isOpen"
       >
         <div class="flex flex-col cursor-pointer">
-          <NavbarMenuItem :action="log">Login</NavbarMenuItem>
+          <NavbarMenuItem :action="mainStore.openLoginModal">Login</NavbarMenuItem>
           <NavbarMenuItem :action="mainStore.openRegisterModal">Sign up</NavbarMenuItem>
         </div>
       </div>

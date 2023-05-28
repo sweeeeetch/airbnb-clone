@@ -1,46 +1,48 @@
 <script setup lang="ts">
 import { useMainStore } from "@@/stores/mainStore";
+
+const router = useRouter();
 const mainStore = useMainStore();
 const { $toast } = useNuxtApp();
 
 const isLoading = ref(false);
-const name = ref("");
 const email = ref("");
 const password = ref("");
+const { signIn } = useAuth();
 
 const { handleSubmit: submit } = useForm();
 const handleSubmit = submit(async () => {
   isLoading.value = true;
-  $fetch("/api/register", {
-    method: "POST",
-    body: {
-      name: name.value,
-      email: email.value,
-      password: password.value,
-    },
-  })
-    .then(data => console.log(data))
-    .catch((e: Error) => $toast.error(e.message))
-    .finally(() => {
-      setTimeout(function () {
-        isLoading.value = false;
-      }, 1000);
-    });
+  signIn("credentials", {
+    email: email.value,
+    password: password.value,
+    redirect: false,
+  }).then(callback => {
+    isLoading.value = false;
+
+    if (callback?.ok) {
+      $toast.success("Logged in!");
+      router.push("/");
+      mainStore.closeLoginModal();
+    } else if (callback?.error) {
+      $toast.error(callback.error);
+    }
+  });
 });
 </script>
 
 <template>
   <ClientOnly>
     <ModalsModal
-      :is-open="mainStore.isRegisterModalOpen"
+      :is-open="mainStore.isLoginModalOpen"
       :disabled="isLoading"
       title="Register"
       action-label="Continue"
-      :on-close="mainStore.closeRegisterModal"
+      :on-close="mainStore.closeLoginModal"
       :on-submit="handleSubmit"
     >
       <template v-slot:body>
-        <UiHeading subtitle="Create an account"> Welcome to Airbnb </UiHeading>
+        <UiHeading subtitle="Login to your account!"> Welcome back</UiHeading>
         <UiInputsMyInput
           id="email"
           name="email"
@@ -50,18 +52,10 @@ const handleSubmit = submit(async () => {
           validator="required|email"
         />
         <UiInputsMyInput
-          id="name"
-          name="name"
-          label="Name"
-          :value="name"
-          @update:value="newValue => (name = newValue)"
-          validator="required"
-        />
-        <UiInputsMyInput
           id="password"
           name="password"
-          type="password"
           label="Password"
+          type="password"
           :value="password"
           @update:value="newValue => (password = newValue)"
           validator="required|min:6"
